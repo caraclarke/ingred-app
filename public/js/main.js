@@ -19142,12 +19142,22 @@ var ListManager = React.createClass({
   },
   render: function () {
     // comments at bottom of file
+    // can define styles in render function
+    // react website has list of things need to be aware of when adding this styling
+    // don't have to put px, knows automatically
+    // look up which ones need to define
+    // no semi colon
+
+    var divStyle = {
+      marginTop: 10
+    };
+
     return React.createElement(
       'div',
-      { clasName: 'col-sm-4' },
+      { style: divStyle, clasName: 'col-sm-4 col-md-4' },
       React.createElement(
         'div',
-        { className: 'pane panel-default' },
+        { className: 'pane panel-primary' },
         React.createElement(
           'div',
           { className: 'panel-heading' },
@@ -19189,6 +19199,7 @@ module.exports = ListManager;
 
 //jsx will confuse class (which is React.createClass) with actual css class. className is what you use in jsx
 // can use regular class in index.html
+
 // never put col inside col, put row someplace before nesting
 
 // dynamic, reusable because props.title not ex:'Christmas To Do'
@@ -19206,6 +19217,8 @@ var ReactDOM = require('react-dom');
 var ListManager = require('./components/ListManager.jsx');
 
 ReactDOM.render(React.createElement(ListManager, { title: 'Ingredients' }), document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(ListManager, { title: 'To Do' }), document.getElementById('todo'));
+ReactDOM.render(React.createElement(ListManager, { title: 'Christmas List' }), document.getElementById('christmas'));
 
 // title is where you set ListManager unique name
 // passing down a property --> this.props , immutable (should never change it)

@@ -35,9 +35,19 @@ var ListManager = React.createClass({
   },
   render: function() {
     // comments at bottom of file
+    // can define styles in render function
+    // react website has list of things need to be aware of when adding this styling
+    // don't have to put px, knows automatically
+    // look up which ones need to define
+    // no semi colon
+
+    var divStyle = {
+      marginTop: 10
+    }
+
     return (
-      <div clasName="col-sm-4">
-        <div className="pane panel-default">
+      <div style={divStyle} clasName="col-sm-4 col-md-4">
+        <div className="pane panel-primary">
           <div className="panel-heading">
             <h3>{this.props.title}</h3>
           </div>
@@ -67,6 +77,7 @@ module.exports = ListManager;
 
 //jsx will confuse class (which is React.createClass) with actual css class. className is what you use in jsx
 // can use regular class in index.html
+
 // never put col inside col, put row someplace before nesting
 
 // dynamic, reusable because props.title not ex:'Christmas To Do'
