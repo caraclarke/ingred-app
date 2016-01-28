@@ -76,8 +76,8 @@ var ListManager = React.createClass({
 
             </form>
 
-            <List items={this.state.items} />
           </div>
+          <List items={this.state.items} />
         </div>
       </div>
     );

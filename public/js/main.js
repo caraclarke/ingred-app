@@ -19196,9 +19196,9 @@ var ListManager = React.createClass({
                 'Add'
               )
             )
-          ),
-          React.createElement(List, { items: this.state.items })
-        )
+          )
+        ),
+        React.createElement(List, { items: this.state.items })
       )
     );
   }
