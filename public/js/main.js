@@ -19027,7 +19027,10 @@ module.exports = require('./lib/React');
 },{"./lib/React":53}],159:[function(require,module,exports){
 var React = require('react');
 var ListItem = require('./ListItem.jsx');
+// remember need ./ for files we create within our project
+// don't need for node modules
 
+// creating List class
 var List = React.createClass({
   displayName: 'List',
 
@@ -19047,13 +19050,34 @@ var List = React.createClass({
 
 module.exports = List;
 
+// react expects you to have unique identifiers
+// make list items unique
+
+// without unique identifiers, lists can show the wrong data
+// createItem takes text input and index
+// pass down to list item, unique key and property text
+// key= and text= are properties, this.props comes from them
+// this. comes from component thats above it
+// in react things trickle down, no two-way data binding
+// one way from top down
+// can add as many properties as you want
+
+// .map(createItem) calling function creted above it
+// map iterating through array, calling createItem function we passed into it
+// map calls whatever function you pass into it
+
 },{"./ListItem.jsx":160,"react":158}],160:[function(require,module,exports){
 var React = require('react');
 
 var ListItem = React.createClass({
   displayName: 'ListItem',
 
+  // when you createClass has an object takes as its first parameter
+  // object has render property
+  // render takes your jsx and thats what shows on your screen
   render: function () {
+    // returning actual jsx that you want to use
+    // html with js mixed into it
     return React.createElement(
       'li',
       null,
@@ -19068,6 +19092,15 @@ var ListItem = React.createClass({
 });
 
 module.exports = ListItem;
+// export so we can re-use
+
+// return does not "require" the parentheses, helps it be more readable
+// li h4 /h4 /li could also all be inline, indented to be readable
+// js part must be inside curly braces
+
+// this (components).props (object for properties). text(name of key)
+// grab property text from this specific object
+// assuming there will be properties and one of the properties will be text
 
 },{"react":158}],161:[function(require,module,exports){
 var React = require('react');
@@ -19078,6 +19111,8 @@ var ListManager = React.createClass({
 
   // takes user input
 
+  // property of an object called getinitialstate, a function that is a property
+  // every component will call getinitialstate when the component first loads, only ever called once
   getInitialState: function () {
     return { items: [], newItemText: '' };
   },
@@ -19087,10 +19122,13 @@ var ListManager = React.createClass({
     // whenever user does keystroke, passes in element and changes state to be e.target.value
     // updates value box, tied to data source
   },
+  // function we created that is called when button is pressed to submit new data
   handleSubmit: function (e) {
     e.preventDefault();
+    // not using click function of button itself, don't want click to be accidently called thats why preventDefault
 
     var currentItems = this.state.items;
+    // components have properties and states
     // this.props is only ever read only
     // this.state is when you have data that can change (immutable data)
     // never mutate properties
@@ -19100,9 +19138,10 @@ var ListManager = React.createClass({
     this.setState({ items: currentItems, newItemText: '' });
     // setState -- property of a function in react -- will be called whenever you want to change the state of your application
     // takes an object with properties
-    // whatever you pass in will be properties of your state,
+    // whatever you pass in will be properties of your state
   },
   render: function () {
+    // comments at bottom of file
     return React.createElement(
       'div',
       null,
@@ -19128,14 +19167,14 @@ var ListManager = React.createClass({
 
 module.exports = ListManager;
 
-// dynamic, reusable because props.title not 'Christmas To Do'
+// dynamic, reusable because props.title not ex:'Christmas To Do'
 // form knows this means to grab function not render function
 // input onChange called everytime keystroke put in input box
 // when user types we want it to show up in input box
 // with React you need to explicity reflect the changes you want to show up on the element
 // this.state.newItemText is directly referencing value we are going to be saving and storing
 // without onChange typing won't show up in the box
-// <List re-rendered everytime you add an item
+// <List /> re-rendered everytime you add an item
 
 },{"./List.jsx":159,"react":158}],162:[function(require,module,exports){
 var React = require('react');
@@ -19143,5 +19182,8 @@ var ReactDOM = require('react-dom');
 var ListManager = require('./components/ListManager.jsx');
 
 ReactDOM.render(React.createElement(ListManager, { title: 'Ingredients' }), document.getElementById('ingredients'));
+
+// title is where you set ListManager unique name
+// passing down a property --> this.props , immutable (should never change it)
 
 },{"./components/ListManager.jsx":161,"react":158,"react-dom":29}]},{},[162]);
