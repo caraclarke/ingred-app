@@ -36,23 +36,38 @@ var ListManager = React.createClass({
   render: function() {
     // comments at bottom of file
     return (
-      <div>
-        <h3>{this.props.title}</h3>
+      <div clasName="col-sm-4">
+        <div className="pane panel-default">
+          <div className="panel-heading">
+            <h3>{this.props.title}</h3>
+          </div>
 
-        <form onSubmit={this.handleSubmit}>
+          <div className="panel-body row">
+            <form onSubmit={this.handleSubmit}>
 
-          <input onChange={this.onChange} value={this.state.newItemText}></input>
+            <div className="col-sm-8">
+              <input className="form-control" onChange={this.onChange} value={this.state.newItemText}></input>
+            </div>
 
-          <button>Add</button>
-        </form>
+            <div className="col-sm-4">
+              <button className="btn btn-primary">Add</button>
+            </div>
 
-        <List items={this.state.items} />
+            </form>
+
+            <List items={this.state.items} />
+          </div>
+        </div>
       </div>
     );
   }
 });
 
 module.exports = ListManager;
+
+//jsx will confuse class (which is React.createClass) with actual css class. className is what you use in jsx
+// can use regular class in index.html
+// never put col inside col, put row someplace before nesting
 
 // dynamic, reusable because props.title not ex:'Christmas To Do'
 // form knows this means to grab function not render function

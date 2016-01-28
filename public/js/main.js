@@ -19144,28 +19144,52 @@ var ListManager = React.createClass({
     // comments at bottom of file
     return React.createElement(
       'div',
-      null,
+      { clasName: 'col-sm-4' },
       React.createElement(
-        'h3',
-        null,
-        this.props.title
-      ),
-      React.createElement(
-        'form',
-        { onSubmit: this.handleSubmit },
-        React.createElement('input', { onChange: this.onChange, value: this.state.newItemText }),
+        'div',
+        { className: 'pane panel-default' },
         React.createElement(
-          'button',
-          null,
-          'Add'
+          'div',
+          { className: 'panel-heading' },
+          React.createElement(
+            'h3',
+            null,
+            this.props.title
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'panel-body row' },
+          React.createElement(
+            'form',
+            { onSubmit: this.handleSubmit },
+            React.createElement(
+              'div',
+              { className: 'col-sm-8' },
+              React.createElement('input', { className: 'form-control', onChange: this.onChange, value: this.state.newItemText })
+            ),
+            React.createElement(
+              'div',
+              { className: 'col-sm-4' },
+              React.createElement(
+                'button',
+                { className: 'btn btn-primary' },
+                'Add'
+              )
+            )
+          ),
+          React.createElement(List, { items: this.state.items })
         )
-      ),
-      React.createElement(List, { items: this.state.items })
+      )
     );
   }
 });
 
 module.exports = ListManager;
+
+//jsx will confuse class (which is React.createClass) with actual css class. className is what you use in jsx
+// can use regular class in index.html
+// never put col inside col, put row someplace before nesting
 
 // dynamic, reusable because props.title not ex:'Christmas To Do'
 // form knows this means to grab function not render function
