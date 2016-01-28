@@ -19152,15 +19152,24 @@ var ListManager = React.createClass({
       marginTop: 10
     };
 
+    var headingStyle = {};
+
+    if (this.props.headingColor) {
+      headingStyle.background = this.props.headingColor;
+      // background not backgroundColor because overriding bootstrap panel-heading background color
+      // they use background not background-color
+      // need to know what you are overriding
+    }
+
     return React.createElement(
       'div',
       { style: divStyle, clasName: 'col-sm-4 col-md-4' },
       React.createElement(
         'div',
-        { className: 'pane panel-primary' },
+        { className: 'panel panel-primary' },
         React.createElement(
           'div',
-          { className: 'panel-heading' },
+          { style: headingStyle, className: 'panel-heading' },
           React.createElement(
             'h3',
             null,
@@ -19218,7 +19227,7 @@ var ListManager = require('./components/ListManager.jsx');
 
 ReactDOM.render(React.createElement(ListManager, { title: 'Ingredients' }), document.getElementById('ingredients'));
 ReactDOM.render(React.createElement(ListManager, { title: 'To Do' }), document.getElementById('todo'));
-ReactDOM.render(React.createElement(ListManager, { title: 'Christmas List' }), document.getElementById('christmas'));
+ReactDOM.render(React.createElement(ListManager, { title: 'Christmas List', headingColor: '#b31217' }), document.getElementById('christmas'));
 
 // title is where you set ListManager unique name
 // passing down a property --> this.props , immutable (should never change it)

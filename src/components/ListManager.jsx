@@ -43,12 +43,23 @@ var ListManager = React.createClass({
 
     var divStyle = {
       marginTop: 10
+    };
+
+    var headingStyle = {
+
+    }
+
+    if (this.props.headingColor) {
+      headingStyle.background = this.props.headingColor;
+      // background not backgroundColor because overriding bootstrap panel-heading background color
+      // they use background not background-color
+      // need to know what you are overriding
     }
 
     return (
       <div style={divStyle} clasName="col-sm-4 col-md-4">
-        <div className="pane panel-primary">
-          <div className="panel-heading">
+        <div className="panel panel-primary">
+          <div style={headingStyle} className="panel-heading">
             <h3>{this.props.title}</h3>
           </div>
 
