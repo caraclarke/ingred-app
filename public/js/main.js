@@ -19025,27 +19025,22 @@ module.exports = validateDOMNesting;
 module.exports = require('./lib/React');
 
 },{"./lib/React":53}],159:[function(require,module,exports){
-// use caps for file name so you can identify as component -- not required
-
 var React = require('react');
 var ListItem = require('./ListItem.jsx');
-// have to put file extension because .jsx not .js which is what it automatically looks for
-
-// test data - real data would live somewhere else
-var ingredients = [{ 'id': 1, 'text': 'ham' }, { 'id': 2, 'text': 'cheese' }, { 'id': 3, 'text': 'potatoes' }];
 
 var List = React.createClass({
   displayName: 'List',
 
   render: function () {
-    var listItems = ingredients.map(function (item) {
-      return React.createElement(ListItem, { key: item.id, ingredient: item.text });
-    });
+
+    var createItem = function (text, index) {
+      return React.createElement(ListItem, { key: index + text, text: text });
+    };
 
     return React.createElement(
       'ul',
       null,
-      listItems
+      this.props.items.map(createItem)
     );
   }
 });
@@ -19054,10 +19049,9 @@ module.exports = List;
 
 },{"./ListItem.jsx":160,"react":158}],160:[function(require,module,exports){
 var React = require('react');
+
 var ListItem = React.createClass({
   displayName: 'ListItem',
-
-  // referencing reusabe object oriented programming class
 
   render: function () {
     return React.createElement(
@@ -19066,19 +19060,88 @@ var ListItem = React.createClass({
       React.createElement(
         'h4',
         null,
-        this.props.ingredient
+        this.props.text
       )
-    ); // render function returns html element with injected data
+    );
   }
+
 });
 
 module.exports = ListItem;
 
 },{"react":158}],161:[function(require,module,exports){
 var React = require('react');
+var List = require('./List.jsx');
+
+var ListManager = React.createClass({
+  displayName: 'ListManager',
+
+  // takes user input
+
+  getInitialState: function () {
+    return { items: [], newItemText: '' };
+  },
+  onChange: function (e) {
+    this.setState({ newItemText: e.target.value });
+    // grabbing element, changing newItemText
+    // whenever user does keystroke, passes in element and changes state to be e.target.value
+    // updates value box, tied to data source
+  },
+  handleSubmit: function (e) {
+    e.preventDefault();
+
+    var currentItems = this.state.items;
+    // this.props is only ever read only
+    // this.state is when you have data that can change (immutable data)
+    // never mutate properties
+
+    currentItems.push(this.state.newItemText);
+
+    this.setState({ items: currentItems, newItemText: '' });
+    // setState -- property of a function in react -- will be called whenever you want to change the state of your application
+    // takes an object with properties
+    // whatever you pass in will be properties of your state,
+  },
+  render: function () {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h3',
+        null,
+        this.props.title
+      ),
+      React.createElement(
+        'form',
+        { onSubmit: this.handleSubmit },
+        React.createElement('input', { onChange: this.onChange, value: this.state.newItemText }),
+        React.createElement(
+          'button',
+          null,
+          'Add'
+        )
+      ),
+      React.createElement(List, { items: this.state.items })
+    );
+  }
+});
+
+module.exports = ListManager;
+
+// dynamic, reusable because props.title not 'Christmas To Do'
+// form knows this means to grab function not render function
+// input onChange called everytime keystroke put in input box
+// when user types we want it to show up in input box
+// with React you need to explicity reflect the changes you want to show up on the element
+// this.state.newItemText is directly referencing value we are going to be saving and storing
+// without onChange typing won't show up in the box
+// <List re-rendered everytime you add an item
+
+},{"./List.jsx":159,"react":158}],162:[function(require,module,exports){
+var React = require('react');
 var ReactDOM = require('react-dom');
-var List = require('./components/List.jsx');
+var ListManager = require('./components/ListManager.jsx');
 
-ReactDOM.render(React.createElement(List, null), document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(ListManager, { title: 'Ingredients' }), document.getElementById('ingredients'));
 
-},{"./components/List.jsx":159,"react":158,"react-dom":29}]},{},[161]);
+},{"./components/ListManager.jsx":161,"react":158,"react-dom":29}]},{},[162]);
