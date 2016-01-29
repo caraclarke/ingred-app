@@ -19220,6 +19220,9 @@ module.exports = ListManager;
 // without onChange typing won't show up in the box
 // <List /> re-rendered everytime you add an item
 
+// the more self-contained you can have something the better, thats why its good to have styling in here
+// easily redistributable
+
 },{"./List.jsx":159,"react":158}],162:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
